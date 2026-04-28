@@ -1,0 +1,160 @@
+import java.util.Scanner;
+
+public class WorkoutGuide {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        String[] weeklyPlan = new String[7];
+
+        int choice;
+
+        do {
+            System.out.println("\nWorkout Menu");
+            System.out.println("1 - Add Exercise");
+            System.out.println("2 - View Exercise");
+            System.out.println("3 - Exit");
+            System.out.print("Enter choice: ");
+            choice = input.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.println("\nSelect Day:");
+                    for (int i = 0; i < days.length; i++) {
+                        System.out.println((i + 1) + " - " + days[i]);
+                    }
+
+                    System.out.print("Enter day: ");
+                    int day = input.nextInt();
+
+                    if (day < 1 || day > 7) {
+                        System.out.println("Invalid Input");
+                        break;
+                    }
+
+                    System.out.println("\nCategories:");
+                    System.out.println("1 Arm");
+                    System.out.println("2 Shoulder");
+                    System.out.println("3 Chest");
+                    System.out.println("4 Back");
+                    System.out.println("5 Core");
+                    System.out.println("6 Leg");
+                    System.out.println("0 Back");
+                    System.out.print("Enter category: ");
+                    int category = input.nextInt();
+
+                    if (category == 0) break;
+
+                    System.out.println("\n1 With Equipment");
+                    System.out.println("2 No Equipment");
+                    System.out.println("0 Back");
+                    System.out.print("Enter type: ");
+                    int type = input.nextInt();
+
+                    if (type == 0) break;
+
+                    String[] exercises = null;
+                    String categoryName = "";
+
+                    switch (category) {
+                        case 1:
+                            categoryName = "Arm";
+                            exercises = (type == 1) ?
+                                new String[]{"Bicep Curl", "Hammer Curl", "Tricep Extension", "Preacher Curl", "Concentration Curl", "Cable Curl", "Overhead Tricep Extension", "Tricep Pushdown", "Reverse Curl", "Back"} :
+                                new String[]{"Push-up", "Diamond Push-up", "Plank", "Close Push-up", "Wide Push-up", "Bench Dip", "Arm Circles", "Incline Push-up", "Decline Push-up", "Back"};
+                            break;
+
+                        case 2:
+                            categoryName = "Shoulder";
+                            exercises = (type == 1) ?
+                                new String[]{"Shoulder Press", "Lateral Raise", "Front Raise", "Arnold Press", "Upright Row", "Face Pull", "Dumbbell Press", "Cable Raise", "Shrugs", "Back"} :
+                                new String[]{"Pike Push-up", "Wall Walk", "Plank Shoulder Tap", "Handstand Hold", "Arm Circles", "Decline Push-up", "Shoulder Taps", "Wall Push-up", "Bear Crawl", "Back"};
+                            break;
+
+                        case 3:
+                            categoryName = "Chest";
+                            exercises = (type == 1) ?
+                                new String[]{"Bench Press", "Incline Press", "Chest Fly", "Decline Press", "Cable Fly", "Machine Press", "Dumbbell Press", "Pullover", "Push-up Weighted", "Back"} :
+                                new String[]{"Push-up", "Wide Push-up", "Incline Push-up", "Decline Push-up", "Clap Push-up", "Archer Push-up", "Knee Push-up", "Explosive Push-up", "Diamond Push-up", "Back"};
+                            break;
+
+                        case 4:
+                            categoryName = "Back";
+                            exercises = (type == 1) ?
+                                new String[]{"Deadlift", "Bent Row", "Lat Pulldown", "Seated Row", "T-Bar Row", "Pull-up Weighted", "Cable Row", "Reverse Fly", "Shrugs", "Back"} :
+                                new String[]{"Superman", "Bridge", "Bird Dog", "Pull-up", "Chin-up", "Reverse Snow Angel", "Wall Slide", "Back Extension", "Plank Reach", "Back"};
+                            break;
+
+                        case 5:
+                            categoryName = "Core";
+                            exercises = (type == 1) ?
+                                new String[]{"Cable Crunch", "Russian Twist", "Leg Raise", "Weighted Sit-up", "Hanging Leg Raise", "Ab Rollout", "Machine Crunch", "Cable Twist", "Decline Sit-up", "Back"} :
+                                new String[]{"Plank", "Sit-up", "Mountain Climber", "Bicycle Crunch", "Flutter Kick", "Leg Raise", "Side Plank", "Toe Touch", "V-up", "Back"};
+                            break;
+
+                        case 6:
+                            categoryName = "Leg";
+                            exercises = (type == 1) ?
+                                new String[]{"Squat", "Leg Press", "Lunges", "Deadlift", "Calf Raise", "Leg Curl", "Leg Extension", "Bulgarian Split Squat", "Hack Squat", "Back"} :
+                                new String[]{"Bodyweight Squat", "Jump Squat", "Wall Sit", "Lunges", "Step-up", "Glute Bridge", "Calf Raise", "Side Lunge", "Pistol Squat", "Back"};
+                            break;
+
+                        default:
+                            System.out.println("Invalid Category");
+                            break;
+                    }
+
+                    System.out.println("\nChoose Exercise:");
+                    for (int i = 0; i < exercises.length; i++) {
+                        System.out.println((i + 1) + " - " + exercises[i]);
+                    }
+
+                    int ex = input.nextInt();
+
+                    if (ex < 1 || ex > exercises.length) {
+                        System.out.println("Invalid Input");
+                        break;
+                    }
+
+                    if (ex == exercises.length) break;
+
+                    weeklyPlan[day - 1] = categoryName + " - " + exercises[ex - 1];
+                    System.out.println("Exercise Saved!");
+
+                    break;
+
+                case 2:
+                    System.out.println("\nSelect Day to View:");
+                    for (int i = 0; i < days.length; i++) {
+                        System.out.println((i + 1) + " - " + days[i]);
+                    }
+
+                    System.out.print("Enter day: ");
+                    int viewDay = input.nextInt();
+
+                    if (viewDay < 1 || viewDay > 7) {
+                        System.out.println("Invalid Input");
+                        break;
+                    }
+
+                    if (weeklyPlan[viewDay - 1] == null) {
+                        System.out.println("No assigned exercise");
+                    } else {
+                        System.out.println("Exercise: " + weeklyPlan[viewDay - 1]);
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("System Closed");
+                    break;
+
+                default:
+                    System.out.println("Invalid Input");
+            }
+
+        } while (choice != 3);
+
+        input.close();
+    }
+}
